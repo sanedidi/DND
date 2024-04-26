@@ -66,8 +66,11 @@ h6 {
   font-weight: inherit;
   font-size: inherit;
 }
-.container{
+.container {
   width: 95%;
   max-width: 1980px;
   margin: 0 auto;
+}
+#outlet {
+  width: 100%;
 }

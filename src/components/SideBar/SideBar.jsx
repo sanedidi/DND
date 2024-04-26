@@ -10,15 +10,6 @@ import UseSidebarProps from "./UseSideBarProps";
 
 export const SideBar = ({ openNav, closeNav }) => {
   const {
-    isOpen,
-    setIsOpen,
-    activeAdminLink,
-    setActiveAdmindivnk,
-    divnks,
-    adminLinks,
-    settings,
-    setSettings,
-    handleSettingsOpen,
     links,
   } = UseSidebarProps();
 

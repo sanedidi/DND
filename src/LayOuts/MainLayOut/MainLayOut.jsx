@@ -1,15 +1,17 @@
-import { Box } from "@chakra-ui/react";
-import s from "./MainLayout.module.scss";
-import React from "react";
+import { Outlet } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
 import SideBar from "../../components/SideBar/SideBar";
-export const MainLayOut = () => {
+import s from "./MainLayout.module.scss";
+
+export const MainLayout = () => {
   return (
-    <>
-      <Box className={s.layout}>
-        <SideBar />
+    <Flex className={s.content}>
+      <SideBar />
+      <Box className={s.wrapper} id="outlet">
+        <Outlet style={{ width: "100%" }} className={s.outlet} />
       </Box>
-    </>
+    </Flex>
   );
 };
 
-export default MainLayOut;
+export default MainLayout;
