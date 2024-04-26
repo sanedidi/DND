@@ -11,13 +11,13 @@ const theme = extendTheme({
 
 const App = () => {
   return (
+    <BrowserRouter>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <Router />
         </QueryClientProvider>
-      </BrowserRouter>
     </ChakraProvider>
+      </BrowserRouter>
   );
 };
 

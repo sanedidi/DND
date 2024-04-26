@@ -1,0 +1,12 @@
+.order{
+    padding: 20px;
+    height: 100dvh;
+    &__wrapper{
+        background-color: #fff;
+        height: 100dvh;
+    }
+    &__top{
+        display: grid;
+        grid-template-columns: .5fr 1fr;
+    }
+}

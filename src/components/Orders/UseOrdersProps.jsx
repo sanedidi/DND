@@ -1,9 +1,10 @@
-import React from 'react'
 
 const UseOrdersProps = () => {
-  return {
-    
-  }
-}
+ 
 
-export default UseOrdersProps
+  return {
+    orders,
+  };
+};
+
+export default UseOrdersProps;
