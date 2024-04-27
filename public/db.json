@@ -2,158 +2,234 @@
   "new": [
     {
       "id": 1,
-      "category": "новые",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321540",
-      "description": "Описание товара 1",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 2,
-      "category": "новые",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321541",
-      "description": "Описание товара 1",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "uzumPay",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 3,
-      "category": "новые",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321542",
-      "description": "Описание товара 1",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 4,
-      "category": "новые",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321543",
-      "description": "Описание товара 1",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "cash",
+      "delevery": "dele",
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 5,
-      "category": "новые",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321544",
-      "description": "Описание товара 1",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     }
   ],
   "inPprogress": [
     {
       "id": 1,
-      "category": "заготовка",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321530",
-      "description": "Описание товара 2",
-      "price": 300000
+      "price": 300560,
+      "category": "заготовка",
+      "payment": "payme",
+      "delevery": "self-call",
+      "comment": true,
+      "product": {
+        "num1": {
+          "product1": "1xГамбургер С сыром Без лука"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 2,
-      "category": "заготовка",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321531",
-      "description": "Описание товара 2",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "payme",
+      "delevery": "self-call",
+      "comment": false,
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 3,
-      "category": "заготовка",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321532",
-      "description": "Описание товара 2",
-      "price": 300000
+      "price": 300560,
+      "category": "новые",
+      "payment": "payme",
+      "delevery": "self-call",
+      "comment": false,
+      "product": {
+        "num1": {
+          "product1": "3x Пепси 0,5",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     }
   ],
   "ready": [
     {
       "id": 1,
-      "category": "готов",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321520",
-      "description": "Описание товара 3",
-      "price": 300000
+      "price": 300560,
+      "category": "готов",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 2,
-      "category": "готов",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321521",
-      "description": "Описание товара 3",
-      "price": 300000
+      "price": 300560,
+      "category": "готов",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 3,
-      "category": "готов",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321522",
-      "description": "Описание товара 3",
-      "price": 300000
+      "price": 300560,
+      "category": "готов",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 4,
-      "category": "готов",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321523",
-      "description": "Описание товара 3",
-      "price": 300000
+      "price": 300560,
+      "category": "готов",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     },
     {
       "id": 5,
-      "category": "готов",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321524",
-      "description": "Описание товара 3",
-      "price": 300000
+      "price": 300560,
+      "category": "готов",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     }
   ],
   "delivering": [
     {
       "id": 1,
-      "category": "курьер в пути",
-      "delivery": "",
-      "payment": "",
-      "quantity": "",
-      "time": "",
       "name": "321560",
-      "description": "Описание товара 4",
-      "price": 300001
+      "price": 300560,
+      "category": "Курьер в пути",
+      "payment": "payme",
+      "delevery": "self-call",
+      "product": {
+        "num1": {
+          "product1": "3x Big Gamburger",
+          "product2": "1x Гамбургер",
+          "product3": "Лаваш мясной Standart острый"
+        }
+      },
+      "time": "15:22"
     }
   ]
 }

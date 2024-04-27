@@ -2,3 +2,10 @@ http://localhost:3000/new
 http://localhost:3000/delivering
 http://localhost:3000/inPprogress
 http://localhost:3000/ready
+
+
+
+
+
+
+npx json-server --watch .\public\db.json
