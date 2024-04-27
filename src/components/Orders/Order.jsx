@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import s from "./Orders.module.scss";
 import { Header } from "../Header";
 import CloseBtn from "../svg/CloseBtn";
@@ -21,19 +21,10 @@ import {
 import UseOrdersProps from "./UseOrdersProps";
 import Btn from "../Btn/Btn";
 import CustomAccordion from "../Accordion/CustomAccordion";
-import { CSS } from "@dnd-kit/utilities";
-import { DndContext } from "@dnd-kit/core";
-import { Droppable } from "../Droppable/Droppable";
-import { Draggable } from "../Draggable/Draggable";
+import { Container } from "react-smooth-dnd";
+import { Draggable } from "react-smooth-dnd";
 
 const Order = () => {
-  const [isDropped, setIsDropped] = useState(false);
-  const draggableMarkup = <Draggable>Drag me</Draggable>;
-  function handleDragEnd(event) {
-    if (event.over && event.over.id === "droppable") {
-      setIsDropped(true);
-    }
-  }
   const getPaymentImage = (paymentMethod) => {
     switch (paymentMethod) {
       case "payme":
@@ -116,12 +107,205 @@ const Order = () => {
     fetchReadyProducts();
   }, []);
 
+  const renderItem = (item) => {
+    return (
+      <div key={item.id} className={s.order__card}>
+        <div className={s.order__card_top}>
+          <div className={s.order__card_top_left}>
+            <p>ID:{item.name}</p>
+          </div>
+          <div className={s.order__card_top_right}>
+            <p>{item.price} сум</p>
+            <div className={s.order__card_top_right_img}>
+              <img src={getPaymentImage(item.payment)} alt="" />
+              <img src={getDeliveryImage(item.delevery)} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className={s.order__content}>
+          <div className={s.order__prod}>
+            <p>{item.product.num1.product1}</p>
+            <p>{item.product.num1.product2}</p>
+            <p>{item.product.num1.product3}</p>
+          </div>
+          <div className={s.order__time}>
+            <p>{item.time}</p>
+          </div>
+        </div>
+        <div className={s.order__btns}>
+          <Btn
+            btnIcon={<CloseBtn />}
+            btnWidth={"140px"}
+            btnBorder={"1px solid red"}
+            btnBgColor={"transparent"}
+            btnColor={"red"}
+            btnCont={"Отклонить"}
+          />
+          <Btn
+            btnIcon={<AcceptBtn svgFill={"white"} />}
+            btnWidth={"140px"}
+            btnBgColor={"blue"}
+            btnColor={"white"}
+            btnCont={"Принять"}
+          />
+        </div>
+      </div>
+    );
+  };
+  const renderItem2 = (item) => {
+    return (
+      <div key={item.id} className={s.order__card}>
+        <div className={s.order__card_top}>
+          <div className={s.order__card_top_left}>
+            <p>ID:{item.name}</p>
+          </div>
+          <div className={s.order__card_top_right}>
+            <p>{item.price} сум</p>
+            <div className={s.order__card_top_right_img}>
+              <img src={getPaymentImage(item.payment)} alt="" />
+              <img src={getDeliveryImage(item.delevery)} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className={s.order__content}>
+          <div className={s.order__prod}>
+            <p>{item.product.num1.product1}</p>
+            <p>{item.product.num1.product2}</p>
+            <p>{item.product.num1.product3}</p>
+          </div>
+          <div className={s.order__time}>
+            <p>{item.time}</p>
+          </div>
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "column" }}
+          className={s.order__btns}
+        >
+          {item.comment === true && (
+            <CustomAccordion
+              key={item.id}
+              accBtn={"Коментарии(1)"}
+              accContent={"lorem"}
+              accColor={"#6E8BB7"}
+            />
+          )}
+          <Btn
+            btnBorder={"1px solid blue"}
+            btnIcon={<AcceptBtn svgFill={"blue"} />}
+            btnWidth={"100%"}
+            btnBgColor={"transparent"}
+            btnColor={"blue"}
+            btnCont={"Готово"}
+          />
+        </div>
+      </div>
+    );
+  };
+  const renderItem3 = (item) => {
+    return (
+      <div key={item.id} className={s.order__card}>
+        <div className={s.order__card_top}>
+          <div className={s.order__card_top_left}>
+            <p>ID:{item.name}</p>
+          </div>
+          <div className={s.order__card_top_right}>
+            <p>{item.price} сум</p>
+            <div className={s.order__card_top_right_img}>
+              <img src={getPaymentImage(item.payment)} alt="" />
+              <img src={getDeliveryImage(item.delevery)} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className={s.order__content}>
+          <div className={s.order__prod}>
+            <p>{item.product.num1.product1}</p>
+            <p>{item.product.num1.product2}</p>
+            <p>{item.product.num1.product3}</p>
+          </div>
+          <div className={s.order__time}>
+            <p>{item.time}</p>
+          </div>
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "column" }}
+          className={s.order__btns}
+        >
+          {item.comment === true && (
+            <CustomAccordion
+              key={item.id}
+              accBtn={"Коментарии(1)"}
+              accContent={"lorem"}
+              accColor={"#6E8BB7"}
+            />
+          )}
+          <Btn
+            btnBorder={"1px solid blue"}
+            btnIcon={<AcceptBtn svgFill={"blue"} />}
+            btnWidth={"100%"}
+            btnBgColor={"transparent"}
+            btnColor={"blue"}
+            btnCont={"Завершить"}
+          />
+        </div>
+      </div>
+    );
+  };
+  const renderItem4 = (item) => {
+    return (
+      <div key={item.id} className={s.order__card}>
+        <div className={s.order__card_top}>
+          <div className={s.order__card_top_left}>
+            <p>ID:{item.name}</p>
+          </div>
+          <div className={s.order__card_top_right}>
+            <p>{item.price} сум</p>
+            <div className={s.order__card_top_right_img}>
+              <img src={getPaymentImage(item.payment)} alt="" />
+              <img src={getDeliveryImage(item.delevery)} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className={s.order__content}>
+          <div className={s.order__prod}>
+            <p>{item.product.num1.product1}</p>
+            <p>{item.product.num1.product2}</p>
+            <p>{item.product.num1.product3}</p>
+          </div>
+          <div className={s.order__time}>
+            <p>{item.time}</p>
+          </div>
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "column" }}
+          className={s.order__btns}
+        >
+          {item.comment === true && (
+            <CustomAccordion
+              key={el.id}
+              accBtn={"Коментарии(1)"}
+              accContent={"lorem"}
+              accColor={"#6E8BB7"}
+            />
+          )}
+          <Btn
+            btnBorder={"1px solid blue"}
+            btnIcon={<AcceptBtn svgFill={"blue"} />}
+            btnWidth={"100%"}
+            btnBgColor={"transparent"}
+            btnColor={"blue"}
+            btnCont={"Готово"}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const handleDrop = (newItems) => {
+    console.log(newItems);
+  };
+
   return (
     <>
-      <DndContext onDragEnd={handleDragEnd}>
-        {!isDropped ? draggableMarkup : null}
-        <Droppable>{isDropped ? draggableMarkup : "Drop here"}</Droppable>
-      </DndContext>
       <Header title={"Cегодняшние заказы"} />
       <div className={s.order}>
         <div className={s.order__wrapper}>
@@ -138,213 +322,41 @@ const Order = () => {
               <div className={s.order__cards_top_new}>
                 <h2>{newProducts[0]?.category ?? ""}</h2>
               </div>
-              {newProducts.map((el) => {
-                return (
-                  <div key={el.id} className={s.order__card}>
-                    <div className={s.order__card_top}>
-                      <div className={s.order__card_top_left}>
-                        <p>ID:{el.name}</p>
-                      </div>
-                      <div className={s.order__card_top_right}>
-                        <p>{el.price} сум</p>
-                        <div className={s.order__card_top_right_img}>
-                          <img src={getPaymentImage(el.payment)} alt="" />
-                          <img src={getDeliveryImage(el.delevery)} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={s.order__content}>
-                      <div className={s.order__prod}>
-                        <p>{el.product.num1.product1}</p>
-                        <p>{el.product.num1.product2}</p>
-                        <p>{el.product.num1.product3}</p>
-                      </div>
-                      <div className={s.order__time}>
-                        <p>{el.time}</p>
-                      </div>
-                    </div>
-                    <div className={s.order__btns}>
-                      <Btn
-                        btnIcon={<CloseBtn />}
-                        btnWidth={"140px"}
-                        btnBorder={"1px solid red"}
-                        btnBgColor={"transparent"}
-                        btnColor={"red"}
-                        btnCont={"Отклонить"}
-                      />
-                      <Btn
-                        btnIcon={<AcceptBtn svgFill={"white"} />}
-                        btnWidth={"140px"}
-                        btnBgColor={"blue"}
-                        btnColor={"white"}
-                        btnCont={"Принять"}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+              <Container onDrop={handleDrop}>
+                {newProducts.map((item) => (
+                  <Draggable key={item.id}>{renderItem(item)}</Draggable>
+                ))}
+              </Container>
             </div>
             <div className={s.order__cards}>
               <div className={s.order__cards_top_prog}>
                 <h2>{inProgressProducts[0]?.category ?? ""}</h2>
               </div>
-              {inProgressProducts.map((el) => {
-                return (
-                  <div key={el.id} className={s.order__card}>
-                    <div className={s.order__card_top}>
-                      <div className={s.order__card_top_left}>
-                        <p>ID:{el.name}</p>
-                      </div>
-                      <div className={s.order__card_top_right}>
-                        <p>{el.price} сум</p>
-                        <div className={s.order__card_top_right_img}>
-                          <img src={getPaymentImage(el.payment)} alt="" />
-                          <img src={getDeliveryImage(el.delevery)} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={s.order__content}>
-                      <div className={s.order__prod}>
-                        <p>{el.product.num1.product1}</p>
-                        <p>{el.product.num1.product2}</p>
-                        <p>{el.product.num1.product3}</p>
-                      </div>
-                      <div className={s.order__time}>
-                        <p>{el.time}</p>
-                      </div>
-                    </div>
-                    <div
-                      style={{ display: "flex", flexDirection: "column" }}
-                      className={s.order__btns}
-                    >
-                      {el.comment === true && (
-                        <CustomAccordion
-                          key={el.id}
-                          accBtn={"Коментарии(1)"}
-                          accContent={"lorem"}
-                          accColor={"#6E8BB7"}
-                        />
-                      )}
-                      <Btn
-                        btnBorder={"1px solid blue"}
-                        btnIcon={<AcceptBtn svgFill={"blue"} />}
-                        btnWidth={"100%"}
-                        btnBgColor={"transparent"}
-                        btnColor={"blue"}
-                        btnCont={"Готово"}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+              <Container onDrop={handleDrop}>
+                {inProgressProducts.map((item) => (
+                  <Draggable key={item.id}>{renderItem2(item)}</Draggable>
+                ))}
+              </Container>
             </div>
             <div className={s.order__cards}>
               <div className={s.order__cards_top_ready}>
                 <h2>{readyProducts[0]?.category ?? ""}</h2>
               </div>
-              {readyProducts.map((el) => {
-                return (
-                  <div key={el.id} className={s.order__card}>
-                    <div className={s.order__card_top}>
-                      <div className={s.order__card_top_left}>
-                        <p>ID:{el.name}</p>
-                      </div>
-                      <div className={s.order__card_top_right}>
-                        <p>{el.price} сум</p>
-                        <div className={s.order__card_top_right_img}>
-                          <img src={getPaymentImage(el.payment)} alt="" />
-                          <img src={getDeliveryImage(el.delevery)} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={s.order__content}>
-                      <div className={s.order__prod}>
-                        <p>{el.product.num1.product1}</p>
-                        <p>{el.product.num1.product2}</p>
-                        <p>{el.product.num1.product3}</p>
-                      </div>
-                      <div className={s.order__time}>
-                        <p>{el.time}</p>
-                      </div>
-                    </div>
-                    <div
-                      style={{ display: "flex", flexDirection: "column" }}
-                      className={s.order__btns}
-                    >
-                      {el.comment === true && (
-                        <CustomAccordion
-                          key={el.id}
-                          accBtn={"Коментарии(1)"}
-                          accContent={"lorem"}
-                          accColor={"#6E8BB7"}
-                        />
-                      )}
-                      <Btn
-                        btnBorder={"1px solid blue"}
-                        btnIcon={<AcceptBtn svgFill={"blue"} />}
-                        btnWidth={"100%"}
-                        btnBgColor={"transparent"}
-                        btnColor={"blue"}
-                        btnCont={"Завершить"}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+              <Container onDrop={handleDrop}>
+                {readyProducts.map((item) => (
+                  <Draggable key={item.id}>{renderItem3(item)}</Draggable>
+                ))}
+              </Container>
             </div>
             <div className={s.order__cards_last}>
               <div className={s.order__cards_top_delever}>
                 <h2>{deliveringProducts[0]?.category ?? ""}</h2>
               </div>
-              {deliveringProducts.map((el) => {
-                return (
-                  <div key={el.id} className={s.order__card}>
-                    <div className={s.order__card_top}>
-                      <div className={s.order__card_top_left}>
-                        <p>ID:{el.name}</p>
-                      </div>
-                      <div className={s.order__card_top_right}>
-                        <p>{el.price} сум</p>
-                        <div className={s.order__card_top_right_img}>
-                          <img src={getPaymentImage(el.payment)} alt="" />
-                          <img src={getDeliveryImage(el.delevery)} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={s.order__content}>
-                      <div className={s.order__prod}>
-                        <p>{el.product.num1.product1}</p>
-                        <p>{el.product.num1.product2}</p>
-                        <p>{el.product.num1.product3}</p>
-                      </div>
-                      <div className={s.order__time}>
-                        <p>{el.time}</p>
-                      </div>
-                    </div>
-                    <div
-                      style={{ display: "flex", flexDirection: "column" }}
-                      className={s.order__btns}
-                    >
-                      {el.comment === true && (
-                        <CustomAccordion
-                          key={el.id}
-                          accBtn={"Коментарии(1)"}
-                          accContent={"lorem"}
-                          accColor={"#6E8BB7"}
-                        />
-                      )}
-                      <Btn
-                        btnBorder={"1px solid blue"}
-                        btnIcon={<AcceptBtn svgFill={"blue"} />}
-                        btnWidth={"100%"}
-                        btnBgColor={"transparent"}
-                        btnColor={"blue"}
-                        btnCont={"Готово"}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+              <Container onDrop={handleDrop}>
+                {deliveringProducts.map((item) => (
+                  <Draggable key={item.id}>{renderItem4(item)}</Draggable>
+                ))}
+              </Container>
             </div>
           </div>
         </div>

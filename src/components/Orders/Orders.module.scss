@@ -131,4 +131,9 @@
   padding: 10px;
   border-radius: 10px;
 }
+&__drag{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 }

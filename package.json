@@ -27,6 +27,7 @@
     "react-drag-and-drop": "^3.0.0",
     "react-icons": "^5.1.0",
     "react-router-dom": "^6.23.0",
+    "react-smooth-dnd": "^0.11.1",
     "sass": "^1.75.0"
   },
   "devDependencies": {

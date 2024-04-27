@@ -5,6 +5,7 @@ const UseOrdersProps = () => {
   const [inProgressProducts, setInProgressProducts] = useState([]);
   const [deliveringProducts, setDeliveringProducts] = useState([]);
   const [readyProducts, setReadyProducts] = useState([]);
+  
 
   return {
     newProducts,
