@@ -21,8 +21,19 @@ import {
 import UseOrdersProps from "./UseOrdersProps";
 import Btn from "../Btn/Btn";
 import CustomAccordion from "../Accordion/CustomAccordion";
+import { CSS } from "@dnd-kit/utilities";
+import { DndContext } from "@dnd-kit/core";
+import { Droppable } from "../Droppable/Droppable";
+import { Draggable } from "../Draggable/Draggable";
 
 const Order = () => {
+  const [isDropped, setIsDropped] = useState(false);
+  const draggableMarkup = <Draggable>Drag me</Draggable>;
+  function handleDragEnd(event) {
+    if (event.over && event.over.id === "droppable") {
+      setIsDropped(true);
+    }
+  }
   const getPaymentImage = (paymentMethod) => {
     switch (paymentMethod) {
       case "payme":
@@ -107,6 +118,10 @@ const Order = () => {
 
   return (
     <>
+      <DndContext onDragEnd={handleDragEnd}>
+        {!isDropped ? draggableMarkup : null}
+        <Droppable>{isDropped ? draggableMarkup : "Drop here"}</Droppable>
+      </DndContext>
       <Header title={"Cегодняшние заказы"} />
       <div className={s.order}>
         <div className={s.order__wrapper}>
