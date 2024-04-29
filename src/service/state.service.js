@@ -9,21 +9,22 @@ const stateService = {
 };
 
 export const useNewApi = () => {
-  return useMutation({ mutationFn: () => stateService.getNewProducts() });
-};
-
-export const useinProgressApi = () => {
   return useMutation({
-    mutationFn: () => stateService.getInProgressProducts(),
+    mutationFn: (data) => stateService.getNewProducts(data),
   });
 };
-
-export const usedeliveringApi = () => {
+export const useInProgressApi = () => {
   return useMutation({
-    mutationFn: () => stateService.getDeliveringProducts(),
+    mutationFn: (data) => stateService.getInProgressProducts(data),
   });
 };
-
+export const useDeliveringApi = () => {
+  return useMutation({
+    mutationFn: (data) => stateService.getReadyProducts(data),
+  });
+};
 export const useReadyApi = () => {
-  return useMutation({ mutationFn: () => stateService.getReadyProducts() });
+  return useMutation({
+    mutationFn: (data) => stateService.getDeliveringProducts(data),
+  });
 };

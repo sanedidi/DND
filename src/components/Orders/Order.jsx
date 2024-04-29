@@ -14,8 +14,8 @@ import delev from "../../assets/img/delev.png";
 import self from "../../assets/img/self.png";
 import {
   useNewApi,
-  useinProgressApi,
-  usedeliveringApi,
+  useInProgressApi,
+  useDeliveringApi,
   useReadyApi,
 } from "../../service/state.service";
 import UseOrdersProps from "./UseOrdersProps";
@@ -60,8 +60,8 @@ const Order = () => {
   } = UseOrdersProps();
 
   const newApiMutation = useNewApi();
-  const inProgressApiMutation = useinProgressApi();
-  const deliveringApiMutation = usedeliveringApi();
+  const inProgressApiMutation = useInProgressApi();
+  const deliveringApiMutation = useDeliveringApi();
   const readyApiMutation = useReadyApi();
 
   useEffect(() => {
