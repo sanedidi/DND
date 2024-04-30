@@ -7,6 +7,7 @@ const Btn = ({
   btnBorder,
   btnWidth,
   btnIcon,
+  Onclick,
 }) => {
   return (
     <div>
@@ -17,6 +18,7 @@ const Btn = ({
           border={btnBorder}
           color={btnColor}
           colorScheme={btnBgColor}
+          onChange={Onclick}
         >
           {btnCont}
         </Button>

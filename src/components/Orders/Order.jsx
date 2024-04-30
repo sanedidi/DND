@@ -33,251 +33,256 @@ const Cards = () => {
         return null;
     }
   };
-  const orders = [
-    {
-      Новый: [
-        {
-          id: 1,
-          name: "321540",
-          price: 300560,
-          category: "новые",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+
+  const [orders, setOrders] = useState({
+    Новый: [
+      {
+        id: 1,
+        name: "321540",
+        price: 300560,
+        category: "новые",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 2,
-          name: "321541",
-          price: 300560,
-          category: "новые",
-          payment: "uzumPay",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 2,
+        name: "321541",
+        price: 300560,
+        category: "новые",
+        payment: "uzumPay",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 3,
-          name: "321542",
-          price: 300560,
-          category: "новые",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 3,
+        name: "321542",
+        price: 300560,
+        category: "новые",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 4,
-          name: "321543",
-          price: 300560,
-          category: "новые",
-          payment: "cash",
-          delevery: "dele",
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 4,
+        name: "321543",
+        price: 300560,
+        category: "новые",
+        payment: "cash",
+        delevery: "dele",
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 5,
-          name: "321544",
-          price: 300560,
-          category: "новые",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 5,
+        name: "321544",
+        price: 300560,
+        category: "новые",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-      ],
-      Заготовка: [
-        {
-          id: 1,
-          name: "321530",
-          price: 300560,
-          category: "заготовка",
-          payment: "payme",
-          delevery: "self-call",
-          comment: true,
-          product: {
-            num1: {
-              product1: "1xГамбургер С сыром Без лука",
-            },
+        time: "15:22",
+      },
+    ],
+    Заготовка: [
+      {
+        id: 6,
+        name: "321530",
+        price: 300560,
+        category: "заготовка",
+        payment: "payme",
+        delevery: "self-call",
+        comment: true,
+        product: {
+          num1: {
+            product1: "1xГамбургер С сыром Без лука",
           },
-          time: "15:22",
         },
-        {
-          id: 2,
-          name: "321531",
-          price: 300560,
-          category: "новые",
-          payment: "payme",
-          delevery: "self-call",
-          comment: false,
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 7,
+        name: "321531",
+        price: 300560,
+        category: "новые",
+        payment: "payme",
+        delevery: "self-call",
+        comment: false,
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 3,
-          name: "321532",
-          price: 300560,
-          category: "новые",
-          payment: "payme",
-          delevery: "self-call",
-          comment: false,
-          product: {
-            num1: {
-              product1: "3x Пепси 0,5",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 8,
+        name: "321532",
+        price: 300560,
+        category: "новые",
+        payment: "payme",
+        delevery: "self-call",
+        comment: false,
+        product: {
+          num1: {
+            product1: "3x Пепси 0,5",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-      ],
-      Готов: [
-        {
-          id: 1,
-          name: "321520",
-          price: 300560,
-          category: "готов",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+    ],
+    Готов: [
+      {
+        id: 9,
+        name: "321520",
+        price: 300560,
+        category: "готов",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 2,
-          name: "321521",
-          price: 300560,
-          category: "готов",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 10,
+        name: "321521",
+        price: 300560,
+        category: "готов",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 3,
-          name: "321522",
-          price: 300560,
-          category: "готов",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 11,
+        name: "321522",
+        price: 300560,
+        category: "готов",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 4,
-          name: "321523",
-          price: 300560,
-          category: "готов",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 12,
+        name: "321523",
+        price: 300560,
+        category: "готов",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-        {
-          id: 5,
-          name: "321524",
-          price: 300560,
-          category: "готов",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+      {
+        id: 13,
+        name: "321524",
+        price: 300560,
+        category: "готов",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-      ],
-      "Курьер в пути": [
-        {
-          id: 1,
-          name: "321560",
-          price: 300560,
-          category: "Курьер в пути",
-          payment: "payme",
-          delevery: "self-call",
-          product: {
-            num1: {
-              product1: "3x Big Gamburger",
-              product2: "1x Гамбургер",
-              product3: "Лаваш мясной Standart острый",
-            },
+        time: "15:22",
+      },
+    ],
+    "Курьер в пути": [
+      {
+        id: 14,
+        name: "321560",
+        price: 300560,
+        category: "Курьер в пути",
+        payment: "payme",
+        delevery: "self-call",
+        product: {
+          num1: {
+            product1: "3x Big Gamburger",
+            product2: "1x Гамбургер",
+            product3: "Лаваш мясной Standart острый",
           },
-          time: "15:22",
         },
-      ],
-    },
-  ];
+        time: "15:22",
+      },
+    ],
+  });
+
   const [searchId, setSearchId] = useState("");
   const handleSearchInputChange = (e) => {
     setSearchId(e.target.value);
   };
+  const filteredOrders = Object.values(orders).flatMap((ordersInCategory) =>
+  ordersInCategory.filter((order) =>
+    order.name.toLowerCase().includes(searchId.toLowerCase())
+  )
+);
 
-  const filteredOrders = orders?.filter((el) => {
-    return el?.name?.toLowerCase().includes(searchId.toLowerCase());
-  });
+  const resetSearch = () => {
+    setSearchId("");
+  };
 
   const getDeliveryImage = (deliveryMethod) => {
     switch (deliveryMethod) {
@@ -312,7 +317,7 @@ const Cards = () => {
     props: {
       orientation: "horizontal",
     },
-    children: Object.keys(orders[0]).map((categoryKey, index) => ({
+    children: Object.keys(orders).map((categoryKey, index) => ({
       id: `column${index}`,
       type: "container",
       name: categoryKey,
@@ -320,7 +325,7 @@ const Cards = () => {
         orientation: "vertical",
         className: "card-container",
       },
-      children: orders[0][categoryKey].map((order) => ({
+      children: orders[categoryKey].map((order) => ({
         type: "draggable",
         id: `order${order.id}`,
         props: {
@@ -355,34 +360,39 @@ const Cards = () => {
       setScene(newScene);
     }
   };
+
   const moveOrderToNextColumn = (order) => {
-    const orderCategory = Object.keys(orders[0]).find((category) =>
-      orders[0][category].some((o) => o.id === order.id)
-    );
-    const orderIndex = orders[0][orderCategory].findIndex(
-      (o) => o.id === order.id
-    );
+    try {
+      const orderCategory = Object.keys(orders).find((category) =>
+        orders[category].some((o) => o.id === order.id)
+      );
+      const orderIndex = orders[orderCategory].findIndex(
+        (o) => o.id === order.id
+      );
 
-    const categoryKeys = Object.keys(orders[0]);
-    const currentCategoryIndex = categoryKeys.findIndex(
-      (key) => key === orderCategory
-    );
-    const nextCategoryIndex =
-      currentCategoryIndex < categoryKeys.length - 1
-        ? currentCategoryIndex + 1
-        : currentCategoryIndex;
-    const nextCategory = categoryKeys[nextCategoryIndex];
+      const categoryKeys = Object.keys(orders);
+      const currentCategoryIndex = categoryKeys.findIndex(
+        (key) => key === orderCategory
+      );
+      const nextCategoryIndex =
+        currentCategoryIndex < categoryKeys.length - 1
+          ? currentCategoryIndex + 1
+          : currentCategoryIndex;
+      const nextCategory = categoryKeys[nextCategoryIndex];
 
-    const updatedOrders = { ...orders };
-    updatedOrders[0][nextCategory].push(order);
-    updatedOrders[0][orderCategory].splice(orderIndex, 1);
-    setOrders(updatedOrders);
+      const updatedOrders = { ...orders };
+      updatedOrders[nextCategory].push(order);
+      updatedOrders[orderCategory].splice(orderIndex, 1);
+      setOrders(updatedOrders);
 
-    console.log("success");
+      console.log("success");
+    } catch (error) {
+      console.log("fail");
+    }
   };
 
-  const totalProducts = Object.keys(orders[0]).reduce(
-    (total, key) => total + orders[0][key].length,
+  const totalProducts = Object.keys(orders).reduce(
+    (total, key) => total + orders[key].length,
     0
   );
 
@@ -395,7 +405,7 @@ const Cards = () => {
           icon={<Search2Icon style={{ color: "#0E73F6" }} />}
           text={"Поиск по ID"}
           value={searchId}
-          onChange={(e) => setSearchId(e.target.value)}
+          onChange={handleSearchInputChange}
         />
         <div className={s.order__topp}>
           <CustomMenu
