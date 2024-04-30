@@ -367,7 +367,6 @@ const Order = () => {
 
 export default Order;
 
-
 const [scene, setScene] = useState({
   type: "container",
   props: {
@@ -391,6 +390,36 @@ const [scene, setScene] = useState({
     })),
   })),
 });
+
+const getCardPayload = (columnId, index) => {
+  return scene.children.find((column) => column.id === columnId).children[
+    index
+  ];
+};
+
+const onColumnDrop = (dropResult) => {
+  const newScene = { ...scene };
+  newScene.children = applyDrag(newScene.children, dropResult);
+  setScene(newScene);
+};
+
+const onCardDrop = (columnId, dropResult) => {
+  if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+    const newScene = { ...scene };
+    const columnIndex = newScene.children.findIndex(
+      (column) => column.id === columnId
+    );
+    const newColumn = { ...newScene.children[columnIndex] };
+    newColumn.children = applyDrag(newColumn.children, dropResult);
+    newScene.children.splice(columnIndex, 1, newColumn);
+    setScene(newScene);
+  }
+};
+
+const totalProducts = Object.keys(orders[0]).reduce(
+  (total, key) => total + orders[0][key].length,
+  0
+);
 const orders = [
   {
     Новый: [
