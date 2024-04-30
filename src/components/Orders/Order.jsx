@@ -1,10 +1,12 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useEffect, useState } from "react";
+import { Container, Draggable } from "react-smooth-dnd";
+import Header from "../Header/Header";
+import { applyDrag } from "./utils";
 import s from "./Orders.module.scss";
-import { Header } from "../Header";
 import CloseBtn from "../svg/CloseBtn";
 import AcceptBtn from "../svg/Done";
 import CustomInput from "../Input/Input";
-import { Search2Icon } from "@chakra-ui/icons";
+import { ChevronDownIcon, Search2Icon, TimeIcon } from "@chakra-ui/icons";
 import CustomMenu from "../Menu/CustomMenu";
 import Payme from "../../assets/img/payme.png";
 import uzumPay from "../../assets/img/uzumPay.png";
@@ -12,19 +14,11 @@ import cash from "../../assets/img/cash.png";
 import card from "../../assets/img/card.png";
 import delev from "../../assets/img/delev.png";
 import self from "../../assets/img/self.png";
-import {
-  useNewApi,
-  useInProgressApi,
-  useDeliveringApi,
-  useReadyApi,
-} from "../../service/state.service";
-import UseOrdersProps from "./UseOrdersProps";
 import Btn from "../Btn/Btn";
-import CustomAccordion from "../Accordion/CustomAccordion";
-import { Container } from "react-smooth-dnd";
-import { Draggable } from "react-smooth-dnd";
+import MenuSvg from "../svg/MenuSvg";
+import Done from "../svg/Done";
 
-const Order = () => {
+const Cards = () => {
   const getPaymentImage = (paymentMethod) => {
     switch (paymentMethod) {
       case "payme":
@@ -39,330 +33,470 @@ const Order = () => {
         return null;
     }
   };
-  const getDeliveryImage = (delevMethod) => {
-    switch (delevMethod) {
+  const orders = [
+    {
+      Новый: [
+        {
+          id: 1,
+          name: "321540",
+          price: 300560,
+          category: "новые",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 2,
+          name: "321541",
+          price: 300560,
+          category: "новые",
+          payment: "uzumPay",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 3,
+          name: "321542",
+          price: 300560,
+          category: "новые",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 4,
+          name: "321543",
+          price: 300560,
+          category: "новые",
+          payment: "cash",
+          delevery: "dele",
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 5,
+          name: "321544",
+          price: 300560,
+          category: "новые",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+      ],
+      Заготовка: [
+        {
+          id: 1,
+          name: "321530",
+          price: 300560,
+          category: "заготовка",
+          payment: "payme",
+          delevery: "self-call",
+          comment: true,
+          product: {
+            num1: {
+              product1: "1xГамбургер С сыром Без лука",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 2,
+          name: "321531",
+          price: 300560,
+          category: "новые",
+          payment: "payme",
+          delevery: "self-call",
+          comment: false,
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 3,
+          name: "321532",
+          price: 300560,
+          category: "новые",
+          payment: "payme",
+          delevery: "self-call",
+          comment: false,
+          product: {
+            num1: {
+              product1: "3x Пепси 0,5",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+      ],
+      Готов: [
+        {
+          id: 1,
+          name: "321520",
+          price: 300560,
+          category: "готов",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 2,
+          name: "321521",
+          price: 300560,
+          category: "готов",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 3,
+          name: "321522",
+          price: 300560,
+          category: "готов",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 4,
+          name: "321523",
+          price: 300560,
+          category: "готов",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+        {
+          id: 5,
+          name: "321524",
+          price: 300560,
+          category: "готов",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+      ],
+      "Курьер в пути": [
+        {
+          id: 1,
+          name: "321560",
+          price: 300560,
+          category: "Курьер в пути",
+          payment: "payme",
+          delevery: "self-call",
+          product: {
+            num1: {
+              product1: "3x Big Gamburger",
+              product2: "1x Гамбургер",
+              product3: "Лаваш мясной Standart острый",
+            },
+          },
+          time: "15:22",
+        },
+      ],
+    },
+  ];
+  const getDeliveryImage = (deliveryMethod) => {
+    switch (deliveryMethod) {
       case "dele":
         return delev;
       case "self-call":
         return self;
+      default:
+        return null;
     }
   };
 
-  const {
-    newProducts,
-    setNewProducts,
-    inProgressProducts,
-    setInProgressProducts,
-    deliveringProducts,
-    setDeliveringProducts,
-    readyProducts,
-    setReadyProducts,
-  } = UseOrdersProps();
+  const TimeDisplay = () => {
+    const [time, setTime] = useState("");
 
-  const newApiMutation = useNewApi();
-  const inProgressApiMutation = useInProgressApi();
-  const deliveringApiMutation = useDeliveringApi();
-  const readyApiMutation = useReadyApi();
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const currentTime = new Date();
+        const hours = currentTime.getHours().toString().padStart(2, "0");
+        const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+        setTime(`${hours}:${minutes}`);
+      }, 1000);
 
-  useEffect(() => {
-    const fetchNewProducts = async () => {
-      try {
-        const { data } = await newApiMutation.mutateAsync();
-        setNewProducts(data);
-      } catch (error) {
-        console.error("Error fetching new products:", error);
-      }
-    };
+      return () => clearInterval(interval);
+    }, []);
 
-    const fetchInProgressProducts = async () => {
-      try {
-        const { data } = await inProgressApiMutation.mutateAsync();
-        setInProgressProducts(data);
-      } catch (error) {
-        console.error("Error fetching in-progress products:", error);
-      }
-    };
-
-    const fetchDeliveringProducts = async () => {
-      try {
-        const { data } = await deliveringApiMutation.mutateAsync();
-        setDeliveringProducts(data);
-      } catch (error) {
-        console.error("Error fetching delivering products:", error);
-      }
-    };
-
-    const fetchReadyProducts = async () => {
-      try {
-        const { data } = await readyApiMutation.mutateAsync();
-        setReadyProducts(data);
-      } catch (error) {
-        console.error("Error fetching ready products:", error);
-      }
-    };
-
-    fetchNewProducts();
-    fetchInProgressProducts();
-    fetchDeliveringProducts();
-    fetchReadyProducts();
-  }, []);
-
-  const renderItem = (item) => {
-    return (
-      <div key={item.id} className={s.order__card}>
-        <div className={s.order__card_top}>
-          <div className={s.order__card_top_left}>
-            <p>ID:{item.name}</p>
-          </div>
-          <div className={s.order__card_top_right}>
-            <p>{item.price} сум</p>
-            <div className={s.order__card_top_right_img}>
-              <img src={getPaymentImage(item.payment)} alt="" />
-              <img src={getDeliveryImage(item.delevery)} alt="" />
-            </div>
-          </div>
-        </div>
-        <div className={s.order__content}>
-          <div className={s.order__prod}>
-            <p>{item.product.num1.product1}</p>
-            <p>{item.product.num1.product2}</p>
-            <p>{item.product.num1.product3}</p>
-          </div>
-          <div className={s.order__time}>
-            <p>{item.time}</p>
-          </div>
-        </div>
-        <div className={s.order__btns}>
-          <Btn
-            btnIcon={<CloseBtn />}
-            btnWidth={"140px"}
-            btnBorder={"1px solid red"}
-            btnBgColor={"transparent"}
-            btnColor={"red"}
-            btnCont={"Отклонить"}
-          />
-          <Btn
-            btnIcon={<AcceptBtn svgFill={"white"} />}
-            btnWidth={"140px"}
-            btnBgColor={"blue"}
-            btnColor={"white"}
-            btnCont={"Принять"}
-          />
-        </div>
-      </div>
-    );
-  };
-  const renderItem2 = (item) => {
-    return (
-      <div key={item.id} className={s.order__card}>
-        <div className={s.order__card_top}>
-          <div className={s.order__card_top_left}>
-            <p>ID:{item.name}</p>
-          </div>
-          <div className={s.order__card_top_right}>
-            <p>{item.price} сум</p>
-            <div className={s.order__card_top_right_img}>
-              <img src={getPaymentImage(item.payment)} alt="" />
-              <img src={getDeliveryImage(item.delevery)} alt="" />
-            </div>
-          </div>
-        </div>
-        <div className={s.order__content}>
-          <div className={s.order__prod}>
-            <p>{item.product.num1.product1}</p>
-            <p>{item.product.num1.product2}</p>
-            <p>{item.product.num1.product3}</p>
-          </div>
-          <div className={s.order__time}>
-            <p>{item.time}</p>
-          </div>
-        </div>
-        <div
-          style={{ display: "flex", flexDirection: "column" }}
-          className={s.order__btns}
-        >
-          {item.comment === true && (
-            <CustomAccordion
-              key={item.id}
-              accBtn={"Коментарии(1)"}
-              accContent={"lorem"}
-              accColor={"#6E8BB7"}
-            />
-          )}
-          <Btn
-            btnBorder={"1px solid blue"}
-            btnIcon={<AcceptBtn svgFill={"blue"} />}
-            btnWidth={"100%"}
-            btnBgColor={"transparent"}
-            btnColor={"blue"}
-            btnCont={"Готово"}
-          />
-        </div>
-      </div>
-    );
-  };
-  const renderItem3 = (item) => {
-    return (
-      <div key={item.id} className={s.order__card}>
-        <div className={s.order__card_top}>
-          <div className={s.order__card_top_left}>
-            <p>ID:{item.name}</p>
-          </div>
-          <div className={s.order__card_top_right}>
-            <p>{item.price} сум</p>
-            <div className={s.order__card_top_right_img}>
-              <img src={getPaymentImage(item.payment)} alt="" />
-              <img src={getDeliveryImage(item.delevery)} alt="" />
-            </div>
-          </div>
-        </div>
-        <div className={s.order__content}>
-          <div className={s.order__prod}>
-            <p>{item.product.num1.product1}</p>
-            <p>{item.product.num1.product2}</p>
-            <p>{item.product.num1.product3}</p>
-          </div>
-          <div className={s.order__time}>
-            <p>{item.time}</p>
-          </div>
-        </div>
-        <div
-          style={{ display: "flex", flexDirection: "column" }}
-          className={s.order__btns}
-        >
-          {item.comment === true && (
-            <CustomAccordion
-              key={item.id}
-              accBtn={"Коментарии(1)"}
-              accContent={"lorem"}
-              accColor={"#6E8BB7"}
-            />
-          )}
-          <Btn
-            btnBorder={"1px solid blue"}
-            btnIcon={<AcceptBtn svgFill={"blue"} />}
-            btnWidth={"100%"}
-            btnBgColor={"transparent"}
-            btnColor={"blue"}
-            btnCont={"Завершить"}
-          />
-        </div>
-      </div>
-    );
-  };
-  const renderItem4 = (item) => {
-    return (
-      <div key={item.id} className={s.order__card}>
-        <div className={s.order__card_top}>
-          <div className={s.order__card_top_left}>
-            <p>ID:{item.name}</p>
-          </div>
-          <div className={s.order__card_top_right}>
-            <p>{item.price} сум</p>
-            <div className={s.order__card_top_right_img}>
-              <img src={getPaymentImage(item.payment)} alt="" />
-              <img src={getDeliveryImage(item.delevery)} alt="" />
-            </div>
-          </div>
-        </div>
-        <div className={s.order__content}>
-          <div className={s.order__prod}>
-            <p>{item.product.num1.product1}</p>
-            <p>{item.product.num1.product2}</p>
-            <p>{item.product.num1.product3}</p>
-          </div>
-          <div className={s.order__time}>
-            <p>{item.time}</p>
-          </div>
-        </div>
-        <div
-          style={{ display: "flex", flexDirection: "column" }}
-          className={s.order__btns}
-        >
-          {item.comment === true && (
-            <CustomAccordion
-              key={el.id}
-              accBtn={"Коментарии(1)"}
-              accContent={"lorem"}
-              accColor={"#6E8BB7"}
-            />
-          )}
-          <Btn
-            btnBorder={"1px solid blue"}
-            btnIcon={<AcceptBtn svgFill={"blue"} />}
-            btnWidth={"100%"}
-            btnBgColor={"transparent"}
-            btnColor={"blue"}
-            btnCont={"Готово"}
-          />
-        </div>
-      </div>
-    );
+    return <p>{time}</p>;
   };
 
-  const handleDrop = (newItems) => {
-    console.log(newItems);
+  const [scene, setScene] = useState({
+    type: "container",
+    props: {
+      orientation: "horizontal",
+    },
+    children: Object.keys(orders[0]).map((categoryKey, index) => ({
+      id: `column${index}`,
+      type: "container",
+      name: categoryKey,
+      props: {
+        orientation: "vertical",
+        className: "card-container",
+      },
+      children: orders[0][categoryKey].map((order) => ({
+        type: "draggable",
+        id: `order${order.id}`,
+        props: {
+          className: "card",
+        },
+        data: order,
+      })),
+    })),
+  });
+
+  const getCardPayload = (columnId, index) => {
+    return scene.children.find((column) => column.id === columnId).children[
+      index
+    ];
   };
+
+  const onColumnDrop = (dropResult) => {
+    const newScene = { ...scene };
+    newScene.children = applyDrag(newScene.children, dropResult);
+    setScene(newScene);
+  };
+
+  const onCardDrop = (columnId, dropResult) => {
+    if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+      const newScene = { ...scene };
+      const columnIndex = newScene.children.findIndex(
+        (column) => column.id === columnId
+      );
+      const newColumn = { ...newScene.children[columnIndex] };
+      newColumn.children = applyDrag(newColumn.children, dropResult);
+      newScene.children.splice(columnIndex, 1, newColumn);
+      setScene(newScene);
+    }
+  };
+
+  const totalProducts = Object.keys(orders[0]).reduce(
+    (total, key) => total + orders[0][key].length,
+    0
+  );
 
   return (
     <>
       <Header title={"Cегодняшние заказы"} />
-      <div className={s.order}>
-        <div className={s.order__wrapper}>
-          <div className={s.order__top}>
-            <CustomInput
-              width={"100%"}
-              icon={<Search2Icon style={{ color: "#0E73F6" }} />}
-              text={"Поиск по ID"}
-            />
-            <CustomMenu MenuBtn={<p>Всего:</p>} MenuIt={"efwjek"} />
-          </div>
-          <div className={s.order__main_cards}>
-            <div className={s.order__cards}>
-              <div className={s.order__cards_top_new}>
-                <h2>{newProducts[0]?.category ?? ""}</h2>
-              </div>
-              <Container onDrop={handleDrop}>
-                {newProducts.map((item) => (
-                  <Draggable key={item.id}>{renderItem(item)}</Draggable>
-                ))}
-              </Container>
-            </div>
-            <div className={s.order__cards}>
-              <div className={s.order__cards_top_prog}>
-                <h2>{inProgressProducts[0]?.category ?? ""}</h2>
-              </div>
-              <Container onDrop={handleDrop}>
-                {inProgressProducts.map((item) => (
-                  <Draggable key={item.id}>{renderItem2(item)}</Draggable>
-                ))}
-              </Container>
-            </div>
-            <div className={s.order__cards}>
-              <div className={s.order__cards_top_ready}>
-                <h2>{readyProducts[0]?.category ?? ""}</h2>
-              </div>
-              <Container onDrop={handleDrop}>
-                {readyProducts.map((item) => (
-                  <Draggable key={item.id}>{renderItem3(item)}</Draggable>
-                ))}
-              </Container>
-            </div>
-            <div className={s.order__cards_last}>
-              <div className={s.order__cards_top_delever}>
-                <h2>{deliveringProducts[0]?.category ?? ""}</h2>
-              </div>
-              <Container onDrop={handleDrop}>
-                {deliveringProducts.map((item) => (
-                  <Draggable key={item.id}>{renderItem4(item)}</Draggable>
-                ))}
-              </Container>
-            </div>
+      <div className={s.order__top}>
+        <CustomInput
+          width={"100%"}
+          icon={<Search2Icon style={{ color: "#0E73F6" }} />}
+          text={"Поиск по ID"}
+        />
+        <div className={s.order__topp}>
+          <CustomMenu
+            MenuBtnControl={"order__control"}
+            MenuBtnWidth={"20px"}
+            MenuSvg={<MenuSvg />}
+            MenuSvg2={<ChevronDownIcon />}
+            MenuControl={"order__menu"}
+            MenuBtn={
+              <p>
+                Всего:
+                {totalProducts}
+              </p>
+            }
+            MenuIt={"efwjek"}
+          />
+          <div className="order__menu">
+            <TimeIcon color={"#6E8BB7"} />
+            <TimeDisplay />
           </div>
         </div>
+      </div>
+      <div className="card-scene">
+        <Container
+          orientation="horizontal"
+          onDrop={onColumnDrop}
+          dragHandleSelector=".column-drag-handle"
+          dropPlaceholder={{
+            animationDuration: 150,
+            showOnTop: true,
+            className: "cards-drop-preview",
+          }}
+        >
+          {scene.children.map((column) => (
+            <Draggable key={column.id}>
+              <div className={s.order__cards}>
+                <div className={s.order__cards_top_ready}>{column.name}</div>
+                <Container
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
+                  groupName="col"
+                  getChildPayload={(index) => getCardPayload(column.id, index)}
+                  onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
+                >
+                  {column.children.map((order) => (
+                    <Draggable key={order.id}>
+                      <div className={s.order__card}>
+                        <div className={s.order__card_top}>
+                          <div className={s.order__card_top_left}>
+                            <p>ID: {order.data.name}</p>
+                          </div>
+                          <div className={s.order__card_top_right}>
+                            <p>{order.data.price} сум</p>
+                            <div className={s.order__card_top_right_img}>
+                              <img
+                                src={getPaymentImage(order.data.payment)}
+                                alt=""
+                              />
+                              <img
+                                src={getDeliveryImage(order.data.delevery)}
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className={s.order__content}>
+                          <div className={s.order__prod}>
+                            <p>{order.data.product.num1.product1}</p>
+                            <p>{order.data.product.num1.product2}</p>
+                            <p>{order.data.product.num1.product3}</p>
+                          </div>
+                          <div className={s.order__time}>
+                            <p>{order.data.time}</p>
+                          </div>
+                        </div>
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                          className={s.order__btns}
+                        >
+                          {column.name === "Новый" && (
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Btn
+                                btnWidth={"120px"}
+                                btnBgColor={"blue"}
+                                btnColor={"white"}
+                                btnCont={"Принять"}
+                                btnIcon={<AcceptBtn svgFill={"white"} />}
+                              />
+                              <Btn
+                                btnBorder={"1px solid red"}
+                                btnWidth={"120px"}
+                                btnBgColor={"transparent"}
+                                btnColor={"red"}
+                                btnCont={"Отменить"}
+                                btnIcon={<CloseBtn />}
+                              />
+                            </div>
+                          )}
+                          {column.name === "Заготовка" && (
+                            <Btn
+                              btnBorder={"1px solid blue"}
+                              btnWidth={"100%"}
+                              btnBgColor={"transparent"}
+                              btnColor={"blue"}
+                              btnCont={"Готово"}
+                              btnIcon={<AcceptBtn svgFill={"blue"} />}
+                            />
+                          )}
+                          {column.name === "Готов" && (
+                            <Btn
+                              btnBorder={"1px solid blue"}
+                              btnWidth={"100%"}
+                              btnBgColor={"transparent"}
+                              btnColor={"blue"}
+                              btnCont={"Завершить"}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </Draggable>
+                  ))}
+                </Container>
+              </div>
+            </Draggable>
+          ))}
+        </Container>
       </div>
     </>
   );
 };
 
-export default Order;
+export default Cards;

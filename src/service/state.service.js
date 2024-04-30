@@ -6,6 +6,15 @@ const stateService = {
   getInProgressProducts: () => request.get("/inPprogress"),
   getReadyProducts: () => request.get("/ready"),
   getDeliveringProducts: () => request.get("/delivering"),
+  getTashkentTime: () =>
+    request.get(
+      "https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tashkent"
+    ),
+};
+export const UseTimeApi = () => {
+  return useMutation({
+    mutationFn: (data = stateService.getTashkentTime(data)),
+  });
 };
 
 export const useNewApi = () => {

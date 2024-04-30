@@ -74,6 +74,32 @@ h6 {
 #outlet {
   width: 100%;
 }
-.chakra-accordion__item.css-17mg6aq{
+.chakra-accordion__item.css-17mg6aq {
   border: none;
+}
+.smooth-dnd-container.horizontal {
+  margin-top: 10px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.chakra-menu__menu-list.css-1kfu8nn button {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.order__control {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px;
+  p {
+    font-weight: 600;
+  }
+}
+.order__menu {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid #e5e9eb;
+  border-radius: 8px;
 }

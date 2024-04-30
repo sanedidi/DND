@@ -5,9 +5,16 @@
     height: 100dvh;
   }
   &__top {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
   }
+  &__topp {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
   &__main_cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -125,15 +132,15 @@
     gap: 5px;
     padding: 12px;
   }
-  &__cards_last{
-  background-color: #1AC19D;
-  height: max-content;
-  padding: 10px;
-  border-radius: 10px;
-}
-&__drag{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+  &__cards_last {
+    background-color: #1ac19d;
+    height: max-content;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  &__drag {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
