@@ -673,3 +673,138 @@ const TimeDisplay = () => {
 
   return <p>{time}</p>;
 };
+
+
+
+{filteredOrders.length > 0 ? (
+  <div>
+    <h2>Найденные заказы:</h2>
+    <ul>
+      {filteredOrders.map((order) => (
+        <li key={order.id}>
+          ID: {order.id}, Название: {order.name}, Цена: {order.price}
+        </li>
+      ))}
+    </ul>
+    <button onClick={resetSearch}>Сбросить поиск</button>
+  </div>
+) : (
+  <div className="card-scene">
+    <Container
+      orientation="horizontal"
+      onDrop={onColumnDrop}
+      dragHandleSelector=".column-drag-handle"
+      dropPlaceholder={{
+        animationDuration: 150,
+        showOnTop: true,
+        className: "cards-drop-preview",
+      }}
+    >
+      {scene.children.map((column) => (
+        <Draggable key={column.id}>
+          <div className={s.order__cards}>
+            <div className={s.order__cards_top_ready}>{column.name}</div>
+            <Container
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+              groupName="col"
+              getChildPayload={(index) =>
+                getCardPayload(column.id, index)
+              }
+              onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
+            >
+              {column.children.map((order) => (
+                <Draggable key={order.id}>
+                  <div className={s.order__card}>
+                    <div className={s.order__card_top}>
+                      <div className={s.order__card_top_left}>
+                        <p>ID: {order.data.name}</p>
+                      </div>
+                      <div className={s.order__card_top_right}>
+                        <p>{order.data.price} сум</p>
+                        <div className={s.order__card_top_right_img}>
+                          <img
+                            src={getPaymentImage(order.data.payment)}
+                            alt=""
+                          />
+                          <img
+                            src={getDeliveryImage(order.data.delevery)}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={s.order__content}>
+                      <div className={s.order__prod}>
+                        <p>{order.data.product.num1.product1}</p>
+                        <p>{order.data.product.num1.product2}</p>
+                        <p>{order.data.product.num1.product3}</p>
+                      </div>
+                      <div className={s.order__time}>
+                        <p>{order.data.time}</p>
+                      </div>
+                    </div>
+                    <div
+                      style={{ display: "flex", flexDirection: "column" }}
+                      className={s.order__btns}
+                    >
+                      {column.name === "Новый" && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Btn
+                            btnBorder={"1px solid red"}
+                            btnWidth={"120px"}
+                            btnBgColor={"transparent"}
+                            btnColor={"red"}
+                            btnCont={"Отменить"}
+                            btnIcon={<CloseBtn />}
+                          />
+                          <Btn
+                            btnWidth={"120px"}
+                            btnBgColor={"blue"}
+                            btnColor={"white"}
+                            btnCont={"Принять"}
+                            btnIcon={<AcceptBtn svgFill={"white"} />}
+                          />
+                        </div>
+                      )}
+                      {column.name === "Заготовка" && (
+                        <Btn
+                          btnBorder={"1px solid blue"}
+                          btnWidth={"100%"}
+                          btnBgColor={"transparent"}
+                          btnColor={"blue"}
+                          btnCont={"Готово"}
+                          btnIcon={<AcceptBtn svgFill={"blue"} />}
+                          onClick={() =>
+                            moveOrderToNextColumn(order.data)
+                          }
+                        />
+                      )}
+                      {column.name === "Готов" && (
+                        <Btn
+                          btnBorder={"1px solid blue"}
+                          btnWidth={"100%"}
+                          btnBgColor={"transparent"}
+                          btnColor={"blue"}
+                          btnCont={"Завершить"}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </Draggable>
+              ))}
+            </Container>
+          </div>
+        </Draggable>
+      ))}
+    </Container>
+  </div>
+)}

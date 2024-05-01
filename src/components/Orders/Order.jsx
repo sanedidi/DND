@@ -275,10 +275,10 @@ const Cards = () => {
     setSearchId(e.target.value);
   };
   const filteredOrders = Object.values(orders).flatMap((ordersInCategory) =>
-  ordersInCategory.filter((order) =>
-    order.name.toLowerCase().includes(searchId.toLowerCase())
-  )
-);
+    ordersInCategory.filter((order) =>
+      order.name.toLowerCase().includes(searchId.toLowerCase())
+    )
+  );
 
   const resetSearch = () => {
     setSearchId("");
@@ -428,19 +428,7 @@ const Cards = () => {
           </div>
         </div>
       </div>
-      {filteredOrders.length > 0 ? (
-        <div>
-          <h2>Найденные заказы:</h2>
-          <ul>
-            {filteredOrders.map((order) => (
-              <li key={order.id}>
-                ID: {order.id}, Название: {order.name}, Цена: {order.price}
-              </li>
-            ))}
-          </ul>
-          <button onClick={resetSearch}>Сбросить поиск</button>
-        </div>
-      ) : (
+      {searchId === "" ? (
         <div className="card-scene">
           <Container
             orientation="horizontal"
@@ -535,7 +523,7 @@ const Cards = () => {
                                 btnColor={"blue"}
                                 btnCont={"Готово"}
                                 btnIcon={<AcceptBtn svgFill={"blue"} />}
-                                onClick={() =>
+                                Onclick={() =>
                                   moveOrderToNextColumn(order.data)
                                 }
                               />
@@ -547,6 +535,7 @@ const Cards = () => {
                                 btnBgColor={"transparent"}
                                 btnColor={"blue"}
                                 btnCont={"Завершить"}
+                                Onclick={()=> moveOrderToNextColumn(order.data)}
                               />
                             )}
                           </div>
@@ -558,6 +547,97 @@ const Cards = () => {
               </Draggable>
             ))}
           </Container>
+        </div>
+      ) : (
+        <div>
+          {filteredOrders.length > 0 ? (
+            <div>
+              <h2>Найденные заказы:</h2>
+              <ul>
+                {filteredOrders.map((order) => (
+                  <div className={s.order__card}>
+                    <div className={s.order__card_top}>
+                      <div className={s.order__card_top_left}>
+                        <p>ID: {order.name}</p>
+                      </div>
+                      <div className={s.order__card_top_right}>
+                        <p>{order.price} сум</p>
+                        <div className={s.order__card_top_right_img}>
+                          <img src={getPaymentImage(order.payment)} alt="" />
+                          <img src={getDeliveryImage(order.delevery)} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={s.order__content}>
+                      <div className={s.order__prod}>
+                        <p>{order.product.num1.product1}</p>
+                        <p>{order.product.num1.product2}</p>
+                        <p>{order.product.num1.product3}</p>
+                      </div>
+                      <div className={s.order__time}>
+                        <p>{order.time}</p>
+                      </div>
+                    </div>
+                    <div
+                      style={{ display: "flex", flexDirection: "column" }}
+                      className={s.order__btns}
+                    >
+                      {order.name === "Новый" && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Btn
+                            btnBorder={"1px solid red"}
+                            btnWidth={"120px"}
+                            btnBgColor={"transparent"}
+                            btnColor={"red"}
+                            btnCont={"Отменить"}
+                            btnIcon={<CloseBtn />}
+                          />
+                          <Btn
+                            btnWidth={"120px"}
+                            btnBgColor={"blue"}
+                            btnColor={"white"}
+                            btnCont={"Принять"}
+                            btnIcon={<AcceptBtn svgFill={"white"} />}
+                          />
+                        </div>
+                      )}
+                      {order.name === "Заготовка" && (
+                        <Btn
+                          btnBorder={"1px solid blue"}
+                          btnWidth={"100%"}
+                          btnBgColor={"transparent"}
+                          btnColor={"blue"}
+                          btnCont={"Готово"}
+                          btnIcon={<AcceptBtn svgFill={"blue"} />}
+                          onClick={() => moveOrderToNextColumn(order.data)}
+                        />
+                      )}
+                      {order.name === "Готов" && (
+                        <Btn
+                          btnBorder={"1px solid blue"}
+                          btnWidth={"100%"}
+                          btnBgColor={"transparent"}
+                          btnColor={"blue"}
+                          btnCont={"Завершить"}
+                        />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </ul>
+              <button onClick={resetSearch}>Сбросить поиск</button>
+            </div>
+          ) : (
+            <img
+              src="https://habrastorage.org/getpro/habr/upload_files/bcc/6f9/0a1/bcc6f90a1e7d665fc16d4163e7f4d426.gif"
+              alt=""
+            />
+          )}
         </div>
       )}
     </>
