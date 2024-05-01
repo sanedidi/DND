@@ -269,6 +269,7 @@ const Cards = () => {
       },
     ],
   });
+  console.log(orders);
 
   const [searchId, setSearchId] = useState("");
   const handleSearchInputChange = (e) => {
@@ -361,18 +362,14 @@ const Cards = () => {
     }
   };
 
-  const moveOrderToNextColumn = (order) => {
+  const moveOrderToNextColumn = (order, currentCategory) => {
     try {
-      const orderCategory = Object.keys(orders).find((category) =>
-        orders[category].some((o) => o.id === order.id)
-      );
-      const orderIndex = orders[orderCategory].findIndex(
-        (o) => o.id === order.id
-      );
+      const currentOrders = [...orders[currentCategory]];
+      const orderIndex = currentOrders.findIndex((o) => o.id === order.id);
 
       const categoryKeys = Object.keys(orders);
       const currentCategoryIndex = categoryKeys.findIndex(
-        (key) => key === orderCategory
+        (key) => key === currentCategory
       );
       const nextCategoryIndex =
         currentCategoryIndex < categoryKeys.length - 1
@@ -380,17 +377,64 @@ const Cards = () => {
           : currentCategoryIndex;
       const nextCategory = categoryKeys[nextCategoryIndex];
 
+      console.log("Текущая категория:", currentCategory);
+      console.log("Следующая категория:", nextCategory);
+
       const updatedOrders = { ...orders };
-      updatedOrders[nextCategory].push(order);
-      updatedOrders[orderCategory].splice(orderIndex, 1);
+      updatedOrders[currentCategory] = currentOrders.filter(
+        (o) => o.id !== order.id
+      );
+
+      const isOrderExistsInNextColumn = updatedOrders[nextCategory].some(
+        (o) => o.id === order.id
+      );
+      console.log(
+        "Заказ уже есть в следующем столбце:",
+        isOrderExistsInNextColumn
+      );
+
+      if (!isOrderExistsInNextColumn) {
+        updatedOrders[nextCategory] = [...updatedOrders[nextCategory], order];
+      }
+
       setOrders(updatedOrders);
 
-      console.log("success");
+      console.log("Успешно перемещено");
+
+      setScene((prevScene) => {
+        const updatedScene = { ...prevScene };
+        const columnIndex = updatedScene.children.findIndex(
+          (column) => column.name === currentCategory
+        );
+        updatedScene.children[columnIndex].children = updatedScene.children[
+          columnIndex
+        ].children.filter((o) => o.id !== `order${order.id}`);
+        if (!isOrderExistsInNextColumn) {
+          const nextColumnIndex = columnIndex + 1;
+          updatedScene.children[nextColumnIndex].children.push({
+            type: "draggable",
+            id: `order${order.id}`,
+            props: {
+              className: "card",
+            },
+            data: order,
+          });
+        }
+        return updatedScene;
+      });
     } catch (error) {
-      console.log("fail");
+      console.log("Не удалось переместить");
     }
   };
-
+  const removeOrder = (orderId, currentCategory) => {
+    setOrders((prevOrders) => {
+      const updatedOrders = { ...prevOrders };
+      updatedOrders[currentCategory] = updatedOrders[currentCategory].filter(
+        (order) => order.id !== orderId
+      );
+      return updatedOrders;
+    });
+  };
   const totalProducts = Object.keys(orders).reduce(
     (total, key) => total + orders[key].length,
     0
@@ -505,6 +549,9 @@ const Cards = () => {
                                   btnColor={"red"}
                                   btnCont={"Отменить"}
                                   btnIcon={<CloseBtn />}
+                                  onClick={() =>
+                                    removeOrder(order.id, order.category)
+                                  }
                                 />
                                 <Btn
                                   btnWidth={"120px"}
@@ -512,6 +559,12 @@ const Cards = () => {
                                   btnColor={"white"}
                                   btnCont={"Принять"}
                                   btnIcon={<AcceptBtn svgFill={"white"} />}
+                                  Onclick={() =>
+                                    moveOrderToNextColumn(
+                                      order.data,
+                                      column.name
+                                    )
+                                  }
                                 />
                               </div>
                             )}
@@ -524,7 +577,7 @@ const Cards = () => {
                                 btnCont={"Готово"}
                                 btnIcon={<AcceptBtn svgFill={"blue"} />}
                                 Onclick={() =>
-                                  moveOrderToNextColumn(order.data)
+                                  moveOrderToNextColumn(order.data, column.name)
                                 }
                               />
                             )}
@@ -535,7 +588,9 @@ const Cards = () => {
                                 btnBgColor={"transparent"}
                                 btnColor={"blue"}
                                 btnCont={"Завершить"}
-                                Onclick={()=> moveOrderToNextColumn(order.data)}
+                                Onclick={() =>
+                                  moveOrderToNextColumn(order.data, column.name)
+                                }
                               />
                             )}
                           </div>
@@ -596,6 +651,7 @@ const Cards = () => {
                             btnColor={"red"}
                             btnCont={"Отменить"}
                             btnIcon={<CloseBtn />}
+                            onClick={() => moveOrderToNextColumn(order.data)}
                           />
                           <Btn
                             btnWidth={"120px"}
@@ -603,6 +659,9 @@ const Cards = () => {
                             btnColor={"white"}
                             btnCont={"Принять"}
                             btnIcon={<AcceptBtn svgFill={"white"} />}
+                            onClick={() =>
+                              moveOrderToNextColumn(order.data, column.name)
+                            }
                           />
                         </div>
                       )}
@@ -614,7 +673,9 @@ const Cards = () => {
                           btnColor={"blue"}
                           btnCont={"Готово"}
                           btnIcon={<AcceptBtn svgFill={"blue"} />}
-                          onClick={() => moveOrderToNextColumn(order.data)}
+                          onClick={() =>
+                            moveOrderToNextColumn(order.data, column.name)
+                          }
                         />
                       )}
                       {order.name === "Готов" && (

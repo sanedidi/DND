@@ -18,7 +18,7 @@ const Btn = ({
           border={btnBorder}
           color={btnColor}
           colorScheme={btnBgColor}
-          onChange={Onclick}
+          onClick={Onclick}
         >
           {btnCont}
         </Button>
