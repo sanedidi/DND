@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+
   &__open {
     width: 280px;
   }
@@ -26,12 +27,14 @@
     width: 50px;
     height: 50px;
     border-radius: 60px;
-    margin: 10px 20px 10px ;
+    margin: 10px 20px 10px;
   }
+
   &__titleWrapper {
     border-bottom: 2px solid #e5e9eb;
     width: 100%;
   }
+
   &__toggleButton {
     position: absolute;
     left: 70px;
@@ -48,8 +51,8 @@
       transition: 0.5s;
     }
   }
-  .chevronR {
-  }
+
+  .chevronR {}
 
   &__logo {
     font-size: 20px;
@@ -57,12 +60,14 @@
     letter-spacing: 0em;
     color: #0e73fc;
   }
-// ##################
+
+  // ##################
   &__navbar {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
+
   &__bottom {
     display: flex;
     flex-direction: column;
@@ -79,15 +84,15 @@
     justify-content: space-between;
     list-style-type: none;
     width: 88px;
-    height: 100dvh;
+    height: calc(100dvh - 90px);
   }
+
   &__top {
     display: flex;
     flex-direction: column;
   }
 
-  &__navItem {
-  }
+  &__navItem {}
 
   &__navLink {
     display: flex;
@@ -106,17 +111,19 @@
       font-size: 24px;
     }
   }
-  &__navLink p {
-  }
+
+  &__navLink p {}
 
   &__logOutIcon {
     font-size: 20px;
     color: #7384a2;
     font-weight: 700;
   }
+
   &__wrapperSidebar {
     display: flex;
   }
+
   &__CategoryLinks {
     display: flex;
     flex-direction: column;

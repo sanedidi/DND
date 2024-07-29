@@ -5,12 +5,12 @@ import s from "./MainLayout.module.scss";
 
 export const MainLayout = () => {
   return (
-    <Flex className={s.content}>
+    <div className={s.content}>
       <SideBar />
       <Box className={s.wrapper} id="outlet">
         <Outlet style={{ width: "100%" }} className={s.outlet} />
       </Box>
-    </Flex>
+    </div>
   );
 };
 

@@ -104,7 +104,7 @@ h6 {
   border-radius: 8px;
 }
 .card-scene {
-  height: 550px !important;
+  height: calc(100vh - 140px);
   overflow-x: scroll;
 }
 ::-webkit-scrollbar {
@@ -125,4 +125,7 @@ h6 {
 .smooth-dnd-draggable-wrapper {
   width: 100%;
   max-width: 305px;
+}
+.smooth-dnd-draggable-wrapper{
+  max-width: none;
 }

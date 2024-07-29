@@ -441,267 +441,272 @@ const Cards = () => {
   );
 
   return (
-    <>
-      <Header title={"Cегодняшние заказы"} />
-      <div className={s.order__top}>
-        <CustomInput
-          width={"100%"}
-          icon={<Search2Icon style={{ color: "#0E73F6" }} />}
-          text={"Поиск по ID"}
-          value={searchId}
-          onChange={handleSearchInputChange}
-        />
-        <div className={s.order__topp}>
-          <CustomMenu
-            MenuBtnControl={"order__control"}
-            MenuBtnWidth={"20px"}
-            MenuSvg={<MenuSvg />}
-            MenuSvg2={<ChevronDownIcon />}
-            MenuControl={"order__menu"}
-            MenuBtn={
-              <p>
-                Всего:
-                {totalProducts}
-              </p>
-            }
-            MenuIt={"efwjek"}
+    <div className={s.main}>
+      <div className={s.header}>
+        <Header title={"Cегодняшние заказы"} />
+      </div>
+      <div className={s.main__cont}>
+        <div className={s.order__top}>
+          <CustomInput
+            width={"100%"}
+            icon={<Search2Icon style={{ color: "#0E73F6" }} />}
+            text={"Поиск по ID"}
+            value={searchId}
+            onChange={handleSearchInputChange}
           />
-          <div className="order__menu">
-            <TimeIcon color={"#6E8BB7"} />
-            <TimeDisplay />
+          <div className={s.order__topp}>
+            <CustomMenu
+              MenuBtnControl={"order__control"}
+              MenuBtnWidth={"20px"}
+              MenuSvg={<MenuSvg />}
+              MenuSvg2={<ChevronDownIcon />}
+              MenuControl={"order__menu"}
+              MenuBtn={
+                <p>
+                  Всего:
+                  {totalProducts}
+                </p>
+              }
+              MenuIt={"efwjek"}
+            />
+            <div className="order__menu">
+              <TimeIcon color={"#6E8BB7"} />
+              <TimeDisplay />
+            </div>
           </div>
         </div>
-      </div>
-      {searchId === "" ? (
-        <div className="card-scene">
-          <Container
-            orientation="horizontal"
-            onDrop={onColumnDrop}
-            dragHandleSelector=".column-drag-handle"
-            dropPlaceholder={{
-              animationDuration: 150,
-              showOnTop: true,
-              className: "cards-drop-preview",
-            }}
-          >
-            {scene.children.map((column) => (
-              <Draggable key={column.id}>
-                <div className={s.order__cards}>
-                  <div className={s.order__cards_top_ready}>{column.name}</div>
-                  <Container
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "20px",
-                    }}
-                    groupName="col"
-                    getChildPayload={(index) =>
-                      getCardPayload(column.id, index)
-                    }
-                    onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
-                  >
-                    {column.children.map((order) => (
-                      <Draggable key={order.id}>
-                        <div className={s.order__card}>
-                          <div className={s.order__card_top}>
-                            <div className={s.order__card_top_left}>
-                              <p>ID: {order.data.name}</p>
-                            </div>
-                            <div className={s.order__card_top_right}>
-                              <p>{order.data.price} сум</p>
-                              <div className={s.order__card_top_right_img}>
-                                <img
-                                  src={getPaymentImage(order.data.payment)}
-                                  alt=""
-                                />
-                                <img
-                                  src={getDeliveryImage(order.data.delevery)}
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className={s.order__content}>
-                            <div className={s.order__prod}>
-                              <p>{order.data.product.num1.product1}</p>
-                              <p>{order.data.product.num1.product2}</p>
-                              <p>{order.data.product.num1.product3}</p>
-                            </div>
-                            <div className={s.order__time}>
-                              <p>{order.data.time}</p>
-                            </div>
-                          </div>
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                            className={s.order__btns}
-                          >
-                            {column.name === "Новый" && (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                <Btn
-                                  btnBorder={"1px solid red"}
-                                  btnWidth={"120px"}
-                                  btnBgColor={"transparent"}
-                                  btnColor={"red"}
-                                  btnCont={"Отменить"}
-                                  btnIcon={<CloseBtn />}
-                                  onClick={() =>
-                                    removeOrder(order.id, order.category)
-                                  }
-                                />
-                                <Btn
-                                  btnWidth={"120px"}
-                                  btnBgColor={"blue"}
-                                  btnColor={"white"}
-                                  btnCont={"Принять"}
-                                  btnIcon={<AcceptBtn svgFill={"white"} />}
-                                  Onclick={() =>
-                                    moveOrderToNextColumn(
-                                      order.data,
-                                      column.name
-                                    )
-                                  }
-                                />
-                              </div>
-                            )}
-                            {column.name === "Заготовка" && (
-                              <Btn
-                                btnBorder={"1px solid blue"}
-                                btnWidth={"100%"}
-                                btnBgColor={"transparent"}
-                                btnColor={"blue"}
-                                btnCont={"Готово"}
-                                btnIcon={<AcceptBtn svgFill={"blue"} />}
-                                Onclick={() =>
-                                  moveOrderToNextColumn(order.data, column.name)
-                                }
-                              />
-                            )}
-                            {column.name === "Готов" && (
-                              <Btn
-                                btnBorder={"1px solid blue"}
-                                btnWidth={"100%"}
-                                btnBgColor={"transparent"}
-                                btnColor={"blue"}
-                                btnCont={"Завершить"}
-                                Onclick={() =>
-                                  moveOrderToNextColumn(order.data, column.name)
-                                }
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </Draggable>
-                    ))}
-                  </Container>
-                </div>
-              </Draggable>
-            ))}
-          </Container>
-        </div>
-      ) : (
-        <div>
-          {filteredOrders.length > 0 ? (
-            <div>
-              <h2>Найденные заказы:</h2>
-              <ul>
-                {filteredOrders.map((order) => (
-                  <div className={s.order__card}>
-                    <div className={s.order__card_top}>
-                      <div className={s.order__card_top_left}>
-                        <p>ID: {order.name}</p>
-                      </div>
-                      <div className={s.order__card_top_right}>
-                        <p>{order.price} сум</p>
-                        <div className={s.order__card_top_right_img}>
-                          <img src={getPaymentImage(order.payment)} alt="" />
-                          <img src={getDeliveryImage(order.delevery)} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={s.order__content}>
-                      <div className={s.order__prod}>
-                        <p>{order.product.num1.product1}</p>
-                        <p>{order.product.num1.product2}</p>
-                        <p>{order.product.num1.product3}</p>
-                      </div>
-                      <div className={s.order__time}>
-                        <p>{order.time}</p>
-                      </div>
-                    </div>
-                    <div
-                      style={{ display: "flex", flexDirection: "column" }}
-                      className={s.order__btns}
+        {searchId === "" ? (
+          <div className="card-scene">
+            <Container
+              orientation="horizontal"
+              onDrop={onColumnDrop}
+              dragHandleSelector=".column-drag-handle"
+              dropPlaceholder={{
+                animationDuration: 150,
+                showOnTop: true,
+                className: "cards-drop-preview",
+              }}
+            >
+              {scene.children.map((column) => (
+                <Draggable key={column.id}>
+                  <div className={s.order__cards}>
+                    <div className={s.order__cards_top_ready}>{column.name}</div>
+                    <Container
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                      groupName="col"
+                      getChildPayload={(index) =>
+                        getCardPayload(column.id, index)
+                      }
+                      onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
                     >
-                      {order.name === "Новый" && (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
+                      {column.children.map((order) => (
+                        <Draggable key={order.id}>
+                          <div className={s.order__card}>
+                            <div className={s.order__card_top}>
+                              <div className={s.order__card_top_left}>
+                                <p>ID: {order.data.name}</p>
+                              </div>
+                              <div className={s.order__card_top_right}>
+                                <p>{order.data.price} сум</p>
+                                <div className={s.order__card_top_right_img}>
+                                  <img
+                                    src={getPaymentImage(order.data.payment)}
+                                    alt=""
+                                  />
+                                  <img
+                                    src={getDeliveryImage(order.data.delevery)}
+                                    alt=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className={s.order__content}>
+                              <div className={s.order__prod}>
+                                <p>{order.data.product.num1.product1}</p>
+                                <p>{order.data.product.num1.product2}</p>
+                                <p>{order.data.product.num1.product3}</p>
+                              </div>
+                              <div className={s.order__time}>
+                                <p>{order.data.time}</p>
+                              </div>
+                            </div>
+                            <div
+                              style={{ display: "flex", flexDirection: "column", width: "100%" }}
+                              className={s.order__btns}
+                            >
+                              {column.name === "Новый" && (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%"
+                                  }}
+                                >
+                                  <Btn
+                                    btnWidth={"100%"}
+                                    btnBorder={"1px solid red"}
+                                    btnBgColor={"transparent"}
+                                    btnColor={"red"}
+                                    btnCont={"Отменить"}
+                                    btnIcon={<CloseBtn />}
+                                    onClick={() =>
+                                      removeOrder(order.id, order.category)
+                                    }
+                                  />
+                                  <Btn
+                                    btnWidth={"100%"}
+                                    btnBgColor={"blue"}
+                                    btnColor={"white"}
+                                    btnCont={"Принять"}
+                                    btnIcon={<AcceptBtn svgFill={"white"} />}
+                                    Onclick={() =>
+                                      moveOrderToNextColumn(
+                                        order.data,
+                                        column.name
+                                      )
+                                    }
+                                  />
+                                </div>
+                              )}
+                              {column.name === "Заготовка" && (
+                                <Btn
+                                  btnBorder={"1px solid blue"}
+                                  btnWidth={"100%"}
+                                  btnBgColor={"transparent"}
+                                  btnColor={"blue"}
+                                  btnCont={"Готово"}
+                                  btnIcon={<AcceptBtn svgFill={"blue"} />}
+                                  Onclick={() =>
+                                    moveOrderToNextColumn(order.data, column.name)
+                                  }
+                                />
+                              )}
+                              {column.name === "Готов" && (
+                                <Btn
+                                  btnBorder={"1px solid blue"}
+                                  btnWidth={"100%"}
+                                  btnBgColor={"transparent"}
+                                  btnColor={"blue"}
+                                  btnCont={"Завершить"}
+                                  Onclick={() =>
+                                    moveOrderToNextColumn(order.data, column.name)
+                                  }
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </Draggable>
+                      ))}
+                    </Container>
+                  </div>
+                </Draggable>
+              ))}
+            </Container>
+          </div>
+        ) : (
+          <div>
+            {filteredOrders.length > 0 ? (
+              <div>
+                <h2>Найденные заказы:</h2>
+                <ul>
+                  {filteredOrders.map((order) => (
+                    <div className={s.order__card}>
+                      <div className={s.order__card_top}>
+                        <div className={s.order__card_top_left}>
+                          <p>ID: {order.name}</p>
+                        </div>
+                        <div className={s.order__card_top_right}>
+                          <p>{order.price} сум</p>
+                          <div className={s.order__card_top_right_img}>
+                            <img src={getPaymentImage(order.payment)} alt="" />
+                            <img src={getDeliveryImage(order.delevery)} alt="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className={s.order__content}>
+                        <div className={s.order__prod}>
+                          <p>{order.product.num1.product1}</p>
+                          <p>{order.product.num1.product2}</p>
+                          <p>{order.product.num1.product3}</p>
+                        </div>
+                        <div className={s.order__time}>
+                          <p>{order.time}</p>
+                        </div>
+                      </div>
+                      <div
+                        style={{ display: "flex", flexDirection: "column" }}
+                        className={s.order__btns}
+                      >
+                        {order.name === "Новый" && (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Btn
+                              btnBorder={"1px solid red"}
+                              btnWidth={"120px"}
+                              btnBgColor={"transparent"}
+                              btnColor={"red"}
+                              btnCont={"Отменить"}
+                              btnIcon={<CloseBtn />}
+                              onClick={() => moveOrderToNextColumn(order.data)}
+                            />
+                            <Btn
+                              btnWidth={"120px"}
+                              btnBgColor={"blue"}
+                              btnColor={"white"}
+                              btnCont={"Принять"}
+                              btnIcon={<AcceptBtn svgFill={"white"} />}
+                              onClick={() =>
+                                moveOrderToNextColumn(order.data, column.name)
+                              }
+                            />
+                          </div>
+                        )}
+                        {order.name === "Заготовка" && (
                           <Btn
-                            btnBorder={"1px solid red"}
-                            btnWidth={"120px"}
+                            btnBorder={"1px solid blue"}
+                            btnWidth={"100%"}
                             btnBgColor={"transparent"}
-                            btnColor={"red"}
-                            btnCont={"Отменить"}
-                            btnIcon={<CloseBtn />}
-                            onClick={() => moveOrderToNextColumn(order.data)}
-                          />
-                          <Btn
-                            btnWidth={"120px"}
-                            btnBgColor={"blue"}
-                            btnColor={"white"}
-                            btnCont={"Принять"}
-                            btnIcon={<AcceptBtn svgFill={"white"} />}
+                            btnColor={"blue"}
+                            btnCont={"Готово"}
+                            btnIcon={<AcceptBtn svgFill={"blue"} />}
                             onClick={() =>
                               moveOrderToNextColumn(order.data, column.name)
                             }
                           />
-                        </div>
-                      )}
-                      {order.name === "Заготовка" && (
-                        <Btn
-                          btnBorder={"1px solid blue"}
-                          btnWidth={"100%"}
-                          btnBgColor={"transparent"}
-                          btnColor={"blue"}
-                          btnCont={"Готово"}
-                          btnIcon={<AcceptBtn svgFill={"blue"} />}
-                          onClick={() =>
-                            moveOrderToNextColumn(order.data, column.name)
-                          }
-                        />
-                      )}
-                      {order.name === "Готов" && (
-                        <Btn
-                          btnBorder={"1px solid blue"}
-                          btnWidth={"100%"}
-                          btnBgColor={"transparent"}
-                          btnColor={"blue"}
-                          btnCont={"Завершить"}
-                        />
-                      )}
+                        )}
+                        {order.name === "Готов" && (
+                          <Btn
+                            btnBorder={"1px solid blue"}
+                            btnWidth={"100%"}
+                            btnBgColor={"transparent"}
+                            btnColor={"blue"}
+                            btnCont={"Завершить"}
+                          />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </ul>
-              <button onClick={resetSearch}>Сбросить поиск</button>
-            </div>
-          ) : (
-            <img
-              src="https://habrastorage.org/getpro/habr/upload_files/bcc/6f9/0a1/bcc6f90a1e7d665fc16d4163e7f4d426.gif"
-              alt=""
-            />
-          )}
-        </div>
-      )}
-    </>
+                  ))}
+                </ul>
+                <button onClick={resetSearch}>Сбросить поиск</button>
+              </div>
+            ) : (
+              <img
+                src="https://habrastorage.org/getpro/habr/upload_files/bcc/6f9/0a1/bcc6f90a1e7d665fc16d4163e7f4d426.gif"
+                alt=""
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
